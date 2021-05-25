@@ -1,0 +1,135 @@
+.main-container__left {
+  display: block;
+  flex: 0 0 290px;
+  width: 340px;
+  height: 100%;
+
+}
+
+.main-container__left-inner {
+  height: auto;
+  position: sticky;
+  top: 100px;
+}
+
+.filters-list {
+  margin-top: 60px;
+}
+
+.filters-list__controls{
+  padding: 0 2px 40px 2px;
+}
+
+.filters-list__controls-border{
+  padding: 0 2px 15px 2px;
+}
+
+.filters-list__controls__title {
+  display: block;
+  box-sizing: border-box;
+  padding: 8px;
+  transition-duration: 0.5s;
+  border-radius: 10px;
+}
+
+.filters-list__controls__title.fl-hover {
+  background-color: #eeeeee;
+}
+
+.filters-list__controls__title-text {
+  color: black;
+  font-size: 18pt;
+  font-weight: bold;
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.controls__input__input {
+  color: #757575;
+  background: #eeeeee;
+  padding: 0 0 0 12px;
+  height: 50px;
+  width: calc(100% - 12px);
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  transition: background .3s;
+  font-size: 16pt;
+  font-weight: bold;
+  transition-duration: 0.5s;
+}
+
+.controls__input__input.name {
+  color: black;
+  background: white;
+  font-size: 20pt;
+}
+
+.controls__input__input.name:hover {
+   background: #eeeeee;
+}
+
+.controls__input__input.name:focus {
+  background: #eeeeee;
+}
+
+.controls__textarea {
+  color: #757575;
+  background: #eeeeee;
+  padding: 12px;
+  height: 250px;
+  width: calc(100% - 24px);
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  transition: background .3s;
+  font-size: 16pt;
+  font-weight: bold;
+  transition-duration: 0.5s;
+  resize: none;
+}
+
+.filters-list__controls__title-plus {
+  display: block;
+  box-sizing: border-box;
+  padding: 8px;
+  transition-duration: 0.5s;
+  border-radius: 10px;
+}
+
+.filters-list__controls__title-plus:hover {
+  background-color: #eeeeee;
+}
+
+.filters-list__controls__title-text__save {
+  color: black;
+  font-size: 16pt;
+  font-weight: bold;
+  display: inline-block;
+  margin-left: 10px;
+  transition-duration: 0.5s;
+}
+
+.filters-list__controls__title-text__save:hover {
+  color: #2c7f1e;
+}
+
+.filters-list__controls__title-text__del {
+  color: black;
+  font-size: 16pt;
+  font-weight: bold;
+  display: inline-block;
+  margin-left: 10px;
+  transition-duration: 0.5s;
+}
+
+.filters-list__controls__title-text__del:hover {
+  color:  #ff5c1d;
+}
+
+.filters-list__controls__title__date-of-creation {
+  color: #757575;
+  font-size: 14pt;
+  display: inline-block;
+  margin-left: 10px;
+}

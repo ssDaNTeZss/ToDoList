@@ -1,0 +1,43 @@
+<div class="body">
+  <div class="container" id="container" [ngClass]="{
+'right-panel-active': this.status
+}">
+    <div class="form-container sign-up-container">
+      <form action="#">
+        <h1>Регистрация</h1>
+        <div class="container__inputs">
+          <input type="text" placeholder="Имя"/>
+          <input type="text" placeholder="Фамилия"/>
+          <input type="email" placeholder="Email"/>
+          <input type="password" placeholder="Пароль"/>
+          <input type="password" placeholder="Пароль еще раз"/>
+        </div>
+        <button>Зарегистрироваться</button>
+      </form>
+    </div>
+
+    <div class="form-container sign-in-container">
+      <form action="#">
+        <h1>Вход</h1>
+        <div class="container__inputs">
+          <input type="email" placeholder="Email"/>
+          <input type="password" placeholder="Пароль"/>
+        </div>
+        <button>Войти</button>
+      </form>
+    </div>
+
+    <div class="overlay-container">
+      <div class="overlay">
+        <div class="overlay-panel overlay-left">
+          <h1 style="margin-bottom: 50px">Уже есть аккаунт?</h1>
+          <button class="ghost" id="signIn" (click)="signIn()" routerLink="/login">Войти</button>
+        </div>
+        <div class="overlay-panel overlay-right">
+          <h1 style="margin-bottom: 50px">Впервые тут?</h1>
+          <button class="ghost" id="signUp" (click)="signUp()" routerLink="/signup">Зарегистрируйтесь сейчас</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

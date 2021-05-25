@@ -1,0 +1,40 @@
+.header {
+  position: fixed;
+  z-index: 99;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 55px;
+  border-bottom: 2pt solid rgba(77, 77, 77, 0.2);
+  display: block;
+  background: #0e0e10;
+}
+
+.grid-row {
+  width: 100%;
+  margin: 0 auto;
+  position: static;
+}
+
+.grid-col {
+  width: 100%;
+  padding: 0 100px 0 100px;
+}
+
+.header-logo__link {
+  width: auto;
+  margin-top: 7px;
+  color: #f0f0f0;
+  font-size: 25pt;
+  float: left;
+  font-weight: bold;
+}
+
+.header-logo-link-sm {
+  width: 215px;
+  color: rgba(240, 240, 240, 0.5);
+  float: left;
+  font-weight: bold;
+  font-size: 24pt;
+  margin-bottom: 50px;
+}
