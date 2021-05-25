@@ -6,6 +6,7 @@ var logger = require('morgan');
 const bodyParser = require("body-parser");
 require("./db/mongoose");
 require("./db/models/list.model");
+require("./db/models/task.model");
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -23,6 +24,19 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET, POST, HEAD, OPTIONS, PUT, PATCH, DELETE");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-access-token, x-refresh-token, _id");
+
+  res.header(
+      'Access-Control-Expose-Headers',
+      'x-access-token, x-refresh-token'
+  );
+
+  next();
+});
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const ctrlList = require("../controllers/list.controller");
+const ctrlTask = require("../controllers/task.controller");
 
 /* GET home page. */
 // router.get('/lists', function(req, res, next) {
@@ -10,5 +11,12 @@ const ctrlList = require("../controllers/list.controller");
 
 router.get('/lists', ctrlList.getAll);
 router.post('/lists', ctrlList.create);
+router.put('/lists/:id', ctrlList.update);
+router.delete('/lists/:id', ctrlList.delete);
+
+router.get('/lists/:listId/tasks', ctrlTask.getAll);
+router.post('/lists/:listId/tasks', ctrlTask.create);
+router.put('/lists/:listId/tasks/:taskId', ctrlTask.update);
+router.delete('/lists/:listId/tasks/:taskId', ctrlTask.delete);
 
 module.exports = router;
