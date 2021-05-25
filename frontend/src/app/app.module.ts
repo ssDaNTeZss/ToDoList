@@ -1,19 +1,20 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from "@angular/common/http";
+import { NgModule } from "@angular/core";
+import { BrowserModule } from "@angular/platform-browser";
 
-import { AppComponent } from './app.component';
-import {routes} from "./app.routing";
-import {RouterModule} from "@angular/router";
-import { HeaderComponent } from './header/header.component';
-import { BannerComponent } from './banner/banner.component';
-import { LoginPageComponent } from './page/login-page/login-page.component';
-import { SignupPageComponent } from './page/signup-page/signup-page.component';
-import { TasksComponent } from './page/tasks/tasks.component';
-import { StartPageComponent } from './page/start-page/start-page.component';
-import { LoginAndSignupPageComponent } from './page/login-and-signup-page/login-and-signup-page.component';
-import { AsideLeftComponent } from './aside-left/aside-left.component';
-import { TableComponent } from './table/table.component';
-import { AsideRightComponent } from './aside-right/aside-right.component';
+import { RouterModule } from "@angular/router";
+import { AppComponent } from "./app.component";
+import { routes } from "./app.routing";
+import { AsideLeftComponent } from "./aside-left/aside-left.component";
+import { AsideRightComponent } from "./aside-right/aside-right.component";
+import { BannerComponent } from "./banner/banner.component";
+import { HeaderComponent } from "./header/header.component";
+import { LoginAndSignupPageComponent } from "./page/login-and-signup-page/login-and-signup-page.component";
+import { LoginPageComponent } from "./page/login-page/login-page.component";
+import { SignupPageComponent } from "./page/signup-page/signup-page.component";
+import { StartPageComponent } from "./page/start-page/start-page.component";
+import { TasksComponent } from "./page/tasks/tasks.component";
+import { TableComponent } from "./table/table.component";
 
 @NgModule({
   declarations: [
@@ -32,8 +33,10 @@ import { AsideRightComponent } from './aside-right/aside-right.component';
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
