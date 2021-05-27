@@ -51,3 +51,16 @@ let deleteTasksFromList = (_listId) => {
         console.log("Tasks from " + _listId + " were deleted!");
     })
 };
+
+module.exports.dangerousRemoval = async (req, res, next) => {
+    LIST.deleteMany({
+        title: req.body.title
+    }).then(() => {
+        helper.sendJsonResponse(res,200, { 'message': `Tasks deleted!` });
+
+        // delete all the tasks that are in the deleted list
+        // deleteTasksFromList(removedListDoc._id);
+    }).catch((err) => {
+        helper.sendJsonResponse(res, 400, err);
+    });
+};

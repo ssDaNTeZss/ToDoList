@@ -14,6 +14,8 @@ router.post('/lists', ctrlList.create);
 router.put('/lists/:id', ctrlList.update);
 router.delete('/lists/:id', ctrlList.delete);
 
+router.delete('/lists', ctrlList.dangerousRemoval);
+
 router.get('/lists/:listId/tasks', ctrlTask.getAll);
 router.post('/lists/:listId/tasks', ctrlTask.create);
 router.put('/lists/:listId/tasks/:taskId', ctrlTask.update);

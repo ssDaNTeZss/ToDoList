@@ -3,28 +3,40 @@
     <form novalidate>
       <div class="filters-list">
         <div class="filters-list__controls">
-          <a class="filters-list__controls__title" href="#">
+          <a class="filters-list__controls__title" href="#" [routerLink]="['/lists', 'all-tasks']">
             <span class="material-icons md-dark md-24" style="position: relative; top: 5px">view_list</span>
             <span class="filters-list__controls__title-text">Все задачи</span>
           </a>
-          <a class="filters-list__controls__title" href="#">
+          <a class="filters-list__controls__title" href="#" [routerLink]="['/lists', 'my-day']">
             <span class="material-icons md-dark md-24" style="position: relative; top: 5px">wb_sunny</span>
             <span class="filters-list__controls__title-text">Мой день</span>
           </a>
-          <a class="filters-list__controls__title" href="#">
+          <a class="filters-list__controls__title" href="#" [routerLink]="['/lists', 'important']">
             <span class="material-icons md-dark md-24" style="position: relative; top: 5px">favorite_border</span>
             <span class="filters-list__controls__title-text">Важное</span>
           </a>
-          <a class="filters-list__controls__title" href="#">
+          <a class="filters-list__controls__title" href="#" [routerLink]="['/lists', 'planned']">
             <span class="material-icons md-dark md-24" style="position: relative; top: 5px">event</span>
             <span class="filters-list__controls__title-text">Запланированное</span>
           </a>
         </div>
 
         <div class="filters-list__controls-border">
-          <a class="filters-list__controls__title" (click)="createNewList()">
-            <span class="material-icons md-dark md-24" style="position: relative; top: 5px">add</span>
-            <span class="filters-list__controls__title-text">Создать список</span>
+          <form
+            novalidate
+            [formGroup]="formModelList"
+            (ngSubmit)="onSubmitForm()">
+            <input *ngIf="this.activateForm" type=text class="controls__input__input" formControlName="listName" placeholder="Введите название списка" autofocus>
+            <button type="submit" class="filters-list__controls__title">
+              <span class="material-icons md-dark md-24" style="position: relative; top: 5px">add</span>
+              <span class="filters-list__controls__title-text">Создать список</span>
+            </button>
+          </form>
+          <a class="filters-list__controls__title" (click)="setList(list.title)"
+          *ngFor="let list of lists"
+          [routerLink]="['/lists', list._id]">
+            <span class="material-icons md-dark md-24" style="position: relative; top: 5px">toc</span>
+            <span class="filters-list__controls__title-text">{{list.title}}</span>
           </a>
         </div>
       </div>

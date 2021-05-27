@@ -1,14 +1,19 @@
 <table class="table-tasks">
-  <tr class="tr-task">
+  <tr class="tr-task" *ngFor="let task of tasks">
     <td>
       <span class="material-icons md-grey md-24 radio_button">radio_button_unchecked</span>
     </td>
     <td class="task">
-      <p class="task-name">Задача 1</p>
-      <p class="task__list-name">Список 1</p>
+      <p class="task-name">{{task.title}}</p>
+      <p class="task__list-name" *ngIf="task.date_of_completion">{{task.date_of_completion}}</p>
     </td>
     <td>
-      <span class="material-icons md-grey md-24 favorite">favorite_border</span>
+      <span class="material-icons md-grey md-24 favorite"
+            *ngIf="!task.important"
+            (click)="whetherChosen(task._id, task._listId, task.important)">favorite_border</span>
+      <span class="material-icons md-grey md-24 favorite"
+            *ngIf="task.important"
+            (click)="whetherChosen(task._id, task._listId, task.important)">favorite</span>
     </td>
   </tr>
 </table>

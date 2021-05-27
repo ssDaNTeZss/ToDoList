@@ -8,7 +8,7 @@ const TaskSchema = new mongoose.Schema({
         trim: true
     },
     date_of_creation: {
-        type: Date,
+        type: String,
         required: true
     },
     date_of_change: {
@@ -22,12 +22,16 @@ const TaskSchema = new mongoose.Schema({
         trim: true
     },
     date_of_completion: {
-        type: Date,
+        type: String,
         required: false
     },
     _listId: {
         type: mongoose.Types.ObjectId,
         required: true
+    },
+    important: {
+        type: Boolean,
+        default: false
     },
     completed: {
         type: Boolean,

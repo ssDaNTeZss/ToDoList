@@ -10,6 +10,7 @@ export const routes: Routes = [
   {path: "", redirectTo: "/login", pathMatch: "full"},
   {path: "login", component: LoginAndSignupPageComponent},
   {path: "signup", component: LoginAndSignupPageComponent},
-  {path: "tasks", component: TasksComponent},
+  {path: "lists", component: TasksComponent},
+  {path: "lists/:listId", component: TasksComponent},
   {path: "**", redirectTo: "/login", pathMatch: "full"},
 ];
