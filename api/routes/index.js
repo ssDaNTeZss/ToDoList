@@ -10,6 +10,7 @@ const ctrlTask = require("../controllers/task.controller");
 // });
 
 router.get('/lists', ctrlList.getAll);
+router.get('/lists/:id', ctrlList.getOne);
 router.post('/lists', ctrlList.create);
 router.put('/lists/:id', ctrlList.update);
 router.delete('/lists/:id', ctrlList.delete);

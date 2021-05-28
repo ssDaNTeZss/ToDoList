@@ -16,7 +16,7 @@ module.exports.getAll = async (req, res, next) => {
                 helper.sendJsonResponse(res, 400, err);
             }
             helper.sendJsonResponse(res, 200, tasks);
-        });
+        }).sort({ $natural: -1 });
     }
 
     if (req.params.listId === "all-tasks") {

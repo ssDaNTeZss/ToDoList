@@ -52,3 +52,78 @@ body {
 .edit-list-name:hover {
   background-color: #eeeeee;
 }
+
+.controls__input__input {
+  color: black;
+  background: #eeeeee;
+  padding: 0 0 0 12px;
+  height: 43px;
+  width: calc(50% - 12px);
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  transition: background .3s;
+  font-size: 16pt;
+  font-weight: bold;
+  transition-duration: 0.5s;
+}
+
+.controls__input__input.name {
+  color: black;
+  background: white;
+  font-size: 20pt;
+}
+
+.filters-list__controls__title-plus {
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 8px;
+  transition-duration: 0.5s;
+  border-radius: 10px;
+  width: calc(25% - 4px);
+  text-align: center;
+}
+
+.filters-list__controls__title-plus:hover {
+  background-color: #eeeeee;
+}
+
+.filters-list__controls__title-text__save {
+  color: black;
+  font-size: 16pt;
+  font-weight: bold;
+  display: inline-block;
+  transition-duration: 0.5s;
+}
+
+.filters-list__controls__title-text__save:hover {
+  color: #2c7f1e;
+}
+
+.filters-list__controls__title-text__del {
+  color: black;
+  font-size: 16pt;
+  font-weight: bold;
+  display: inline-block;
+  margin-left: 10px;
+  transition-duration: 0.5s;
+}
+
+.filters-list__controls__title-text__del:hover {
+  color:  #ff5c1d;
+}
+
+button {
+  margin-top: 10px;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  color: black;
+  background-color: white;
+  display: block;
+  box-sizing: border-box;
+  padding: 8px;
+  border-radius: 10px;
+  border: none;
+  font-family: 'Source Sans Pro', sans-serif;
+}

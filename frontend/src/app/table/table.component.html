@@ -1,10 +1,19 @@
 <table class="table-tasks">
-  <tr class="tr-task" *ngFor="let task of tasks">
+  <tr class="tr-task" *ngFor="let task of tasks"
+  >
     <td>
-      <span class="material-icons md-grey md-24 radio_button">radio_button_unchecked</span>
+      <span class="material-icons md-grey md-24 radio_button"
+            *ngIf="!task.completed"
+            (click)="taskCompleted(task._id, task._listId, task.completed)">radio_button_unchecked</span>
+      <span class="material-icons md-grey md-24 radio_button"
+            *ngIf="task.completed"
+            (click)="taskCompleted(task._id, task._listId, task.completed)">radio_button_checked</span>
     </td>
     <td class="task">
-      <p class="task-name">{{task.title}}</p>
+      <p class="task-name"
+         [ngClass]="{
+         'completed': task.completed
+         }">{{task.title}}</p>
       <p class="task__list-name" *ngIf="task.date_of_completion">{{task.date_of_completion}}</p>
     </td>
     <td>

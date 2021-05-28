@@ -14,8 +14,21 @@ export class TaskService {
     return this.webReqService.get("lists");
   }
 
+  getOneList(id: string): Observable<Object> {
+    return this.webReqService.get(`lists/${id}`);
+  }
+
   createList(title: string): Observable<Object> {
     return this.webReqService.post("lists", {title});
+  }
+
+  updateList(id: string, title: string): Observable<Object> {
+    // We want to send a web request to update a list
+    return this.webReqService.put(`lists/${id}`, { title });
+  }
+
+  deleteList(id: string): Observable<Object> {
+    return this.webReqService.delete(`lists/${id}`);
   }
 
   getTasks(listId: string): Observable<Object> {
@@ -28,6 +41,8 @@ export class TaskService {
 
   public listId$ = new Subject<any>();
   public titleList$ = new Subject<any>();
+  public update$ = new Subject<boolean>();
+  public editList$ = new Subject<boolean>();
 
   public passingListId(listId: string): void {
     this.listId$.next(listId);
@@ -36,4 +51,13 @@ export class TaskService {
   public passingTitleList(titleList: string): void {
     this.titleList$.next(titleList);
   }
+
+  public update(update: boolean): void {
+    this.update$.next(update);
+  }
+
+  public openEditList(editList: boolean): void {
+    this.editList$.next(editList);
+  }
+
 }

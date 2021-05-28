@@ -16,6 +16,7 @@ import { SignupPageComponent } from "./page/signup-page/signup-page.component";
 import { StartPageComponent } from "./page/start-page/start-page.component";
 import { TasksComponent } from "./page/tasks/tasks.component";
 import { TableComponent } from "./table/table.component";
+import { PopupComponent } from './popup/popup.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { TableComponent } from "./table/table.component";
     LoginAndSignupPageComponent,
     AsideLeftComponent,
     TableComponent,
-    AsideRightComponent
+    AsideRightComponent,
+    PopupComponent
   ],
     imports: [
         BrowserModule,

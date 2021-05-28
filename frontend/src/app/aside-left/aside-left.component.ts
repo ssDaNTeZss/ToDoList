@@ -43,12 +43,20 @@ export class AsideLeftComponent implements OnInit, OnDestroy {
       //   console.log(this.tasks);
       // });
       this.taskService.passingListId(params.listId);
+      this.subs = this.taskService.getLists().subscribe((lists: List[]) => {
+        this.lists = lists;
+      });
     });
 
     this.subs = this.taskService.getLists().subscribe((lists: List[]) => {
       this.lists = lists;
     });
 
+    this.subs = this.taskService.update$.subscribe(() => {
+      this.subs = this.taskService.getLists().subscribe((lists: List[]) => {
+        this.lists = lists;
+      });
+    });
   }
 
   ngOnDestroy(): void {

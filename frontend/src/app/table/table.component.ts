@@ -45,11 +45,23 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   whetherChosen(taskId: string, listId: string, important: boolean): void {
-    let newImportant = {
+    const newImportant = {
       "important": !important
     };
 
     this.subs = this.taskService.updateTask(listId, taskId, newImportant).subscribe(() => {
+      this.subs = this.taskService.getTasks(this.listId).subscribe((tasks: Task[]) => {
+        this.tasks = tasks;
+      });
+    });
+  }
+
+  taskCompleted(taskId: string, listId: string, completed: boolean): void {
+    const newCompleted = {
+      "completed": !completed
+    };
+
+    this.subs = this.taskService.updateTask(listId, taskId, newCompleted).subscribe(() => {
       this.subs = this.taskService.getTasks(this.listId).subscribe((tasks: Task[]) => {
         this.tasks = tasks;
       });

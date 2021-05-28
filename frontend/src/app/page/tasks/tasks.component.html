@@ -7,11 +7,39 @@
       <div class="list-row">
         <div class="list-name">
           <span class="list-name__span">{{this.title}}</span>
-          <span class="material-icons md-dark md-36 edit-list-name">more_vert</span>
+          <span class="material-icons md-dark md-36 edit-list-name"
+                *ngIf='this.listId !== "all-tasks" &&
+          this.listId !== "my-day" &&
+          this.listId !== "important" &&
+          this.listId !== "planned"'
+                (click)="editTitleList()">more_vert</span>
         </div>
+      </div>
+      <div class="list-row" style="padding: 10px 0 10px 0" *ngIf="this.editList">
+        <form
+          novalidate
+          [formGroup]="formModelTitleList"
+          (ngSubmit)="onSubmitForm()">
+          <input
+            type=text
+            class="controls__input__input"
+            formControlName="titleName"
+            placeholder="Введите название списка"
+            autofocus>
+
+          <button type="submit" class="filters-list__controls__title-plus">
+            <!--          <span class="material-icons md-dark md-24" style="position: relative; top: 5px">library_add</span>-->
+            <span class="filters-list__controls__title-text__save">Сохранить</span>
+          </button>
+          <button class="filters-list__controls__title-plus" (click)="delList()">
+            <!--          <span class="material-icons md-dark md-24" style="position: relative; top: 5px">delete</span>-->
+            <span class="filters-list__controls__title-text__del">Удалить</span>
+          </button>
+        </form>
       </div>
 
       <app-table></app-table>
+      <app-popup [activePopup]="this.activePopup" [title]="this.title" [listId]="this.listId"></app-popup>
     </div>
     <app-aside-right></app-aside-right>
   </div>
