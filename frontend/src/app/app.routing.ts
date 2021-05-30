@@ -12,5 +12,6 @@ export const routes: Routes = [
   {path: "signup", component: LoginAndSignupPageComponent},
   {path: "lists", component: TasksComponent},
   {path: "lists/:listId", component: TasksComponent},
+  {path: "lists/:listId/edit-task/:taskId", component: TasksComponent},
   {path: "**", redirectTo: "/login", pathMatch: "full"},
 ];

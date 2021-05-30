@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { ActivatedRoute, Params } from "@angular/router";
+import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { Task } from "src/app/models/task.model";
 import { TaskService } from "../task.service";
@@ -19,12 +19,14 @@ export class TableComponent implements OnInit, OnDestroy {
   constructor(
     private taskService: TaskService,
     private route: ActivatedRoute,
+    private router: Router,
   ) {
   }
 
   ngOnInit(): void {
     this.subs = this.route.params.subscribe((params: Params) => {
       this.listId = params.listId;
+      console.log(this.listId);
 
       this.subs = this.taskService.getTasks(this.listId).subscribe((tasks: Task[]) => {
         this.tasks = tasks;
@@ -66,5 +68,11 @@ export class TableComponent implements OnInit, OnDestroy {
         this.tasks = tasks;
       });
     });
+  }
+
+  editTask(task: Task): void {
+    // this.router.navigate(["/lists", this.listId, "edit-task", task._id]);
+    this.taskService.passingTask(task);
+    this.taskService.openEditTask(true);
   }
 }

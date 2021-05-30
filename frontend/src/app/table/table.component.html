@@ -9,7 +9,7 @@
             *ngIf="task.completed"
             (click)="taskCompleted(task._id, task._listId, task.completed)">radio_button_checked</span>
     </td>
-    <td class="task">
+    <td class="task" (click)="editTask(task)">
       <p class="task-name"
          [ngClass]="{
          'completed': task.completed

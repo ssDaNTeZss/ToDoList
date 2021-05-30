@@ -17,6 +17,7 @@ import { StartPageComponent } from "./page/start-page/start-page.component";
 import { TasksComponent } from "./page/tasks/tasks.component";
 import { TableComponent } from "./table/table.component";
 import { PopupComponent } from './popup/popup.component';
+import { DateConvertPipe } from './pipes/date-convert.pipe';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { PopupComponent } from './popup/popup.component';
     AsideLeftComponent,
     TableComponent,
     AsideRightComponent,
-    PopupComponent
+    PopupComponent,
+    DateConvertPipe
   ],
     imports: [
         BrowserModule,

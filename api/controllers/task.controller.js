@@ -48,7 +48,7 @@ module.exports.getAll = async (req, res, next) => {
     }
 
     if (req.params.listId === "planned") {
-        TASK.find({date_of_completion: { '$exists' : true }}, (err, tasks) => {
+        TASK.find({date_of_completion: { '$exists' : true, "$ne" : "" }}, (err, tasks) => {
             if (err) {
                 helper.sendJsonResponse(res, 400, err);
             }
@@ -96,6 +96,16 @@ module.exports.delete = async (req, res, next) => {
         _listId: req.params.listId
     }).then(() => {
         helper.sendJsonResponse(res, 200, {'message': `Tasks from ${req.params.taskId} were deleted!`});
+    }).catch((err) => {
+        helper.sendJsonResponse(res, 400, err);
+    });
+};
+
+module.exports.dangerousRemoval = async (req, res, next) => {
+    TASK.deleteMany({
+        title: req.body.title
+    }).then(() => {
+        helper.sendJsonResponse(res,200, { 'message': `MANY Tasks deleted!` });
     }).catch((err) => {
         helper.sendJsonResponse(res, 400, err);
     });

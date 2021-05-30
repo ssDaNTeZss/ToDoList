@@ -1,10 +1,20 @@
-<aside class="main-container__left">
+<aside class="main-container__left" *ngIf="openEditTask">
   <div class="main-container__left-inner">
-    <form novalidate>
+    <form
+      novalidate
+      [formGroup]="formModelTask"
+      (ngSubmit)="onSubmitForm()">
       <div class="filters-list">
+        <span class="material-icons md-dark md-36 chevron"
+        (click)="closeEditTask()">chevron_right</span>
         <div class="filters-list__controls">
-          <input class="controls__input__input name" placeholder="Введите название" value="Задача 1">
-          <span class="filters-list__controls__title__date-of-creation">Создано сегодня</span>
+          <input class="controls__input__input name"
+                 placeholder="Введите название"
+                 formControlName="title">
+          <div *ngIf="_title.invalid && (_title.touched || _title.dirty)">
+            <p class="error-block" *ngIf=" _title.errors?.required">Обязательное поле</p>
+          </div>
+          <span class="filters-list__controls__title__date-of-creation">Создано {{this.task.date_of_creation | dateConvert}}</span>
         </div>
 
         <div class="filters-list__controls-border">
@@ -12,7 +22,10 @@
             <span class="material-icons md-dark md-24" style="position: relative; top: 5px">calendar_today</span>
             <span class="filters-list__controls__title-text">Дата выполнения</span>
           </a>
-          <input type=date class="controls__input__input">
+          <input
+            type=date
+            class="controls__input__input"
+            formControlName="date_of_completion">
         </div>
 
         <div class="filters-list__controls">
@@ -20,18 +33,22 @@
             <span class="material-icons md-dark md-24" style="position: relative; top: 5px">info</span>
             <span class="filters-list__controls__title-text">Описание</span>
           </a>
-          <textarea class="controls__textarea"></textarea>
+          <textarea
+            class="controls__textarea"
+            formControlName="description"></textarea>
         </div>
 
         <div class="filters-list__controls-border">
-          <a class="filters-list__controls__title-plus" href="#">
+          <button type="submit" class="filters-list__controls__title-plus"
+                  [disabled]="formModelTask.invalid">
             <span class="material-icons md-dark md-24" style="position: relative; top: 5px">library_add</span>
             <span class="filters-list__controls__title-text__save">Сохранить</span>
-          </a>
-          <a class="filters-list__controls__title-plus" href="#">
+          </button>
+          <button class="filters-list__controls__title-plus"
+          (click)="deleteTask()">
             <span class="material-icons md-dark md-24" style="position: relative; top: 5px">delete</span>
             <span class="filters-list__controls__title-text__del">Удалить</span>
-          </a>
+          </button>
         </div>
       </div>
     </form>

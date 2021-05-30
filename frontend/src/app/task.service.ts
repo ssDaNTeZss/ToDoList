@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Observable, Subject } from "rxjs";
 import { WebRequestService } from "./web-request.service";
+import { Task } from "./models/task.model";
 
 @Injectable({
   providedIn: "root"
@@ -9,6 +10,13 @@ export class TaskService {
 
   constructor(private webReqService: WebRequestService) {
   }
+
+  public listId$ = new Subject<any>();
+  public titleList$ = new Subject<any>();
+  public update$ = new Subject<boolean>();
+  public editList$ = new Subject<boolean>();
+  public task$ = new Subject<Task>();
+  public editTask$ = new Subject<Boolean>();
 
   getLists(): Observable<Object> {
     return this.webReqService.get("lists");
@@ -39,10 +47,9 @@ export class TaskService {
     return this.webReqService.put(`lists/${listId}/tasks/${taskId}`, obj);
   }
 
-  public listId$ = new Subject<any>();
-  public titleList$ = new Subject<any>();
-  public update$ = new Subject<boolean>();
-  public editList$ = new Subject<boolean>();
+  deleteTask(listId: string, taskId: string): Observable<Object> {
+    return this.webReqService.delete(`lists/${listId}/tasks/${taskId}`);
+  }
 
   public passingListId(listId: string): void {
     this.listId$.next(listId);
@@ -60,4 +67,11 @@ export class TaskService {
     this.editList$.next(editList);
   }
 
+  public passingTask(task: Task): void {
+    this.task$.next(task);
+  }
+
+  public openEditTask(editTask: boolean): void {
+    this.editTask$.next(editTask);
+  }
 }

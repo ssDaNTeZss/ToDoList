@@ -22,4 +22,6 @@ router.post('/lists/:listId/tasks', ctrlTask.create);
 router.put('/lists/:listId/tasks/:taskId', ctrlTask.update);
 router.delete('/lists/:listId/tasks/:taskId', ctrlTask.delete);
 
+router.delete('/tasks', ctrlTask.dangerousRemoval);
+
 module.exports = router;

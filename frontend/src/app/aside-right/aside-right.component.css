@@ -13,7 +13,7 @@
 }
 
 .filters-list {
-  margin-top: 60px;
+  margin-top: 10px;
 }
 
 .filters-list__controls{
@@ -63,6 +63,10 @@
   color: black;
   background: white;
   font-size: 20pt;
+}
+
+.controls__input__input.name.title-invalid {
+  border: #ff5c1d solid 2px;
 }
 
 .controls__input__input.name:hover {
@@ -132,4 +136,40 @@
   font-size: 14pt;
   display: inline-block;
   margin-left: 10px;
+}
+
+.chevron {
+  padding: 4px;
+  border-radius: 8px;
+  transition-duration: 0.5s;
+  margin-bottom: 5px;
+}
+
+.chevron:hover {
+  background-color: #eeeeee;
+}
+
+button {
+  margin-top: 10px;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  color: black;
+  background-color: white;
+  display: block;
+  box-sizing: border-box;
+  padding: 8px;
+  border-radius: 10px;
+  border: none;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+button:disabled {
+  background-color: #eeeeee;
+}
+
+.error-block {
+  color:  #ff5c1d;
+  font-size: 12pt;
+  margin: 5px 0 5px 10px;
 }
