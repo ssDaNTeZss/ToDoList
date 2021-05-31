@@ -28,12 +28,22 @@ body {
 }
 
 .list-name {
-  width: 100%;
   padding-bottom: 14px;
   display: inline-block;
-  margin-right: 20px;
   transition-duration: 0.5s;
 }
+
+.add-task {
+  padding-bottom: 14px;
+  display: inline-block;
+  text-align: right;
+  transition-duration: 0.5s;
+  float: right;
+}
+
+/*.add-task span {*/
+/*  float: right;*/
+/*}*/
 
 .list-name__span {
   font-size: 24pt;

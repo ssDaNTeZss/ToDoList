@@ -6,7 +6,7 @@
       (ngSubmit)="onSubmitForm()">
       <div class="filters-list">
         <span class="material-icons md-dark md-36 chevron"
-        (click)="closeEditTask()">chevron_right</span>
+              (click)="closeEditTask()">chevron_right</span>
         <div class="filters-list__controls">
           <input class="controls__input__input name"
                  placeholder="Введите название"
@@ -14,7 +14,8 @@
           <div *ngIf="_title.invalid && (_title.touched || _title.dirty)">
             <p class="error-block" *ngIf=" _title.errors?.required">Обязательное поле</p>
           </div>
-          <span class="filters-list__controls__title__date-of-creation">Создано {{this.task.date_of_creation | dateConvert}}</span>
+          <span class="filters-list__controls__title__date-of-creation"
+                *ngIf="this.task && !this.create">Создано {{this.task.date_of_creation | dateConvert}}</span>
         </div>
 
         <div class="filters-list__controls-border">
@@ -42,10 +43,14 @@
           <button type="submit" class="filters-list__controls__title-plus"
                   [disabled]="formModelTask.invalid">
             <span class="material-icons md-dark md-24" style="position: relative; top: 5px">library_add</span>
-            <span class="filters-list__controls__title-text__save">Сохранить</span>
+            <span class="filters-list__controls__title-text__save"
+                  *ngIf="this.create">Создать</span>
+            <span class="filters-list__controls__title-text__save"
+                  *ngIf="!this.create">Сохранить</span>
           </button>
           <button class="filters-list__controls__title-plus"
-          (click)="deleteTask()">
+                  (click)="deleteTask()"
+                  type="button">
             <span class="material-icons md-dark md-24" style="position: relative; top: 5px">delete</span>
             <span class="filters-list__controls__title-text__del">Удалить</span>
           </button>

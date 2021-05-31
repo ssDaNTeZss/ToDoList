@@ -42,6 +42,9 @@ export class AsideLeftComponent implements OnInit, OnDestroy {
       //   this.tasks = tasks;
       //   console.log(this.tasks);
       // });
+
+      this.taskService.openEditTask(false);
+
       this.taskService.passingListId(params.listId);
       this.subs = this.taskService.getLists().subscribe((lists: List[]) => {
         this.lists = lists;

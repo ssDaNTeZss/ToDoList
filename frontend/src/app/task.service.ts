@@ -17,6 +17,9 @@ export class TaskService {
   public editList$ = new Subject<boolean>();
   public task$ = new Subject<Task>();
   public editTask$ = new Subject<Boolean>();
+  public activePopupTask$ = new Subject<Boolean>();
+  public popupTask$ = new Subject<Task>();
+  public create$ = new Subject<boolean>();
 
   getLists(): Observable<Object> {
     return this.webReqService.get("lists");
@@ -41,6 +44,11 @@ export class TaskService {
 
   getTasks(listId: string): Observable<Object> {
     return this.webReqService.get(`lists/${listId}/tasks`);
+  }
+
+  createTask(listId: string, obj: Object) {
+    // We want to send a web request to create a task
+    return this.webReqService.post(`lists/${listId}/tasks`, obj);
   }
 
   updateTask(listId: string, taskId: string, obj: Object): Observable<Object> {
@@ -73,5 +81,14 @@ export class TaskService {
 
   public openEditTask(editTask: boolean): void {
     this.editTask$.next(editTask);
+  }
+
+  public openPopupTask(activePopupTask: boolean, task: Task): void {
+    this.activePopupTask$.next(activePopupTask);
+    this.popupTask$.next(task);
+  }
+
+  public passingCreate(create: boolean): void {
+    this.create$.next(create);
   }
 }

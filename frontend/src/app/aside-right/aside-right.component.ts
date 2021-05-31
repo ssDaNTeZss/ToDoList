@@ -20,6 +20,8 @@ export class AsideRightComponent implements OnInit, OnDestroy {
   listId: string;
   taskId: string;
   task: Task;
+  create = false;
+  titleButton: string;
 
   constructor(
     private taskService: TaskService,
@@ -48,8 +50,6 @@ export class AsideRightComponent implements OnInit, OnDestroy {
     this.subs = this.route.params.subscribe((params: Params) => {
       this.listId = params.listId;
       this.taskId = params.taskId;
-      console.log(this.listId);
-      console.log(this.taskId);
     });
 
     this.subs = this.taskService.task$.subscribe((task) => {
@@ -63,6 +63,12 @@ export class AsideRightComponent implements OnInit, OnDestroy {
 
     this.subs = this.taskService.editTask$.subscribe((openEditTask: boolean) => {
       this.openEditTask = openEditTask;
+      this.create = false;
+    });
+
+    this.subs = this.taskService.create$.subscribe((create: boolean) => {
+      this.formModelTask.reset();
+      this.create = create;
     });
   }
 
@@ -77,8 +83,16 @@ export class AsideRightComponent implements OnInit, OnDestroy {
   onSubmitForm(): void {
     const FMT = this.formModelTask.value;
 
-    this.taskService.updateTask(this.task._listId, this.task._id, FMT).subscribe(() => {
-    });
+    if (this.create) {
+      this.taskService.createTask(this.listId, FMT).subscribe(() => {
+        this.openEditTask = false;
+        this.taskService.passingListId(this.listId);
+      });
+    } else {
+      this.taskService.updateTask(this.task._listId, this.task._id, FMT).subscribe(() => {
+        this.taskService.passingListId(this.listId);
+      });
+    }
   }
 
   closeEditTask(): void {
@@ -86,8 +100,9 @@ export class AsideRightComponent implements OnInit, OnDestroy {
   }
 
   deleteTask(): void {
-    this.taskService.deleteTask(this.task._listId, this.task._id).subscribe((e) => {
-      console.log(e);
+    this.taskService.openPopupTask(true, this.task);
+    this.taskService.deleteTask(this.task._listId, this.task._id).subscribe(() => {
     });
+    this.openEditTask = false;
   }
 }

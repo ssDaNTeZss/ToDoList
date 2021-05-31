@@ -110,4 +110,9 @@ export class TasksComponent implements OnInit, OnDestroy {
   delList(): void {
     this.activePopup = true;
   }
+
+  openFormCreateTask(): void {
+    this.taskService.openEditTask(true);
+    this.taskService.passingCreate(true);
+  }
 }
