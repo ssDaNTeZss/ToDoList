@@ -17,4 +17,21 @@
   </div>
 </div>
 
-
+<div class="popup" [ngClass]="{
+'active': activePopupTask
+}">
+  <div class="popup__overlay">
+    <div class="popup__content">
+      <div class="content__close-btn" (click)="closePopup()">
+        <span class="material-icons">close</span>
+      </div>
+      <span class="material-icons md-60 md-red">dangerous</span>
+      <h1 style="color: #ff5c1d;">Вы уверены?</h1>
+      <h3>Удалить задачу</h3>
+      <h3>{{this.titleTask}} ?</h3>
+      <div class="multiple-buttons">
+        <button class="button-gray" (click)="onDeletionTask()">Удалить</button>
+      </div>
+    </div>
+  </div>
+</div>

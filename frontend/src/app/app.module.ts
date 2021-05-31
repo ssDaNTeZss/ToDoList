@@ -15,9 +15,10 @@ import { LoginPageComponent } from "./page/login-page/login-page.component";
 import { SignupPageComponent } from "./page/signup-page/signup-page.component";
 import { StartPageComponent } from "./page/start-page/start-page.component";
 import { TasksComponent } from "./page/tasks/tasks.component";
+import { DateConvertPipe } from "./pipes/date-convert.pipe";
+import { PopupComponent } from "./popup/popup.component";
 import { TableComponent } from "./table/table.component";
-import { PopupComponent } from './popup/popup.component';
-import { DateConvertPipe } from './pipes/date-convert.pipe';
+
 
 @NgModule({
   declarations: [
@@ -33,14 +34,14 @@ import { DateConvertPipe } from './pipes/date-convert.pipe';
     TableComponent,
     AsideRightComponent,
     PopupComponent,
-    DateConvertPipe
+    DateConvertPipe,
   ],
-    imports: [
-        BrowserModule,
-        RouterModule.forRoot(routes),
-        HttpClientModule,
-        ReactiveFormsModule,
-    ],
+  imports: [
+    BrowserModule,
+    RouterModule.forRoot(routes),
+    HttpClientModule,
+    ReactiveFormsModule,
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

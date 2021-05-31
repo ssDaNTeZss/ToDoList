@@ -16,7 +16,7 @@ module.exports.getAll = async (req, res, next) => {
                 helper.sendJsonResponse(res, 400, err);
             }
             helper.sendJsonResponse(res, 200, tasks);
-        }).sort({ $natural: -1 });
+        }).sort({$natural: -1});
     }
 
     if (req.params.listId === "all-tasks") {
@@ -29,8 +29,7 @@ module.exports.getAll = async (req, res, next) => {
     }
 
     if (req.params.listId === "my-day") {
-        console.log(new Date().toLocaleDateString());
-        TASK.find({date_of_completion: new Date().toLocaleDateString()}, (err, tasks) => {
+        TASK.find({date_of_completion: formationDate(new Date().toLocaleDateString())}, (err, tasks) => {
             if (err) {
                 helper.sendJsonResponse(res, 400, err);
             }
@@ -48,7 +47,7 @@ module.exports.getAll = async (req, res, next) => {
     }
 
     if (req.params.listId === "planned") {
-        TASK.find({date_of_completion: { '$exists' : true, "$ne" : "" }}, (err, tasks) => {
+        TASK.find({date_of_completion: {'$exists': true, "$ne": ""}}, (err, tasks) => {
             if (err) {
                 helper.sendJsonResponse(res, 400, err);
             }
@@ -66,8 +65,16 @@ module.exports.create = async (req, res, next) => {
         title: req.body.title,
         _listId: req.params.listId,
         date_of_creation: new Date().toLocaleDateString(),
-        date_of_change: new Date()
+        date_of_change: new Date(),
     });
+
+    if (req.body.date_of_completion) {
+        newTask.date_of_completion = req.body.date_of_completion;
+    }
+
+    if (req.body.description) {
+        newTask.description = req.body.description;
+    }
 
     newTask.save().then((newTaskDoc) => {
         helper.sendJsonResponse(res, 201, newTaskDoc);
@@ -105,8 +112,15 @@ module.exports.dangerousRemoval = async (req, res, next) => {
     TASK.deleteMany({
         title: req.body.title
     }).then(() => {
-        helper.sendJsonResponse(res,200, { 'message': `MANY Tasks deleted!` });
+        helper.sendJsonResponse(res, 200, {'message': `MANY Tasks deleted!`});
     }).catch((err) => {
         helper.sendJsonResponse(res, 400, err);
     });
+};
+
+let formationDate = (date) => {
+    console.log(date);
+    const str = date.split(".");
+    const newDate = str[2] + "-" + str[1] + "-" + str[0];
+    return newDate;
 };

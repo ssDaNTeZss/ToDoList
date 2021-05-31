@@ -26,7 +26,6 @@ export class TableComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subs = this.route.params.subscribe((params: Params) => {
       this.listId = params.listId;
-      console.log(this.listId);
 
       this.subs = this.taskService.getTasks(this.listId).subscribe((tasks: Task[]) => {
         this.tasks = tasks;

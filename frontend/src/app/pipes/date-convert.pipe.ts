@@ -22,13 +22,11 @@ export class DateConvertPipe implements PipeTransform {
     }
     dateString = dateString + "-" + date.Date;
 
-
-    console.log(new Date());
-    console.log(dateString);
-    console.log(value);
+    const str = value.split(".");
+    const valueStr = str[2] + "-" + str[1] + "-" + str[0];
 
     const newDate = new Date(dateString);
-    const valueDate = new Date(value);
+    const valueDate = new Date(valueStr);
     const differenceInDays = (newDate.getTime() - valueDate.getTime()) / (1000 * 60 * 60 * 24);
 
     if (differenceInDays === 0) {
@@ -46,5 +44,4 @@ export class DateConvertPipe implements PipeTransform {
 
     return value;
   }
-
 }
