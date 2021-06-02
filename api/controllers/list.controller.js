@@ -5,7 +5,7 @@ const TASK = mongoose.model('Task');
 const helper = require("../helpers/common");
 
 module.exports.getOne = async (req, res, next) => {
-    LIST.findById({_id: req.params.id}, (err, list) => {
+    LIST.findById({_id: req.params.id, _userId: req.user_id}, (err, list) => {
         if (err) {
             helper.sendJsonResponse(res, 400, err);
         }
@@ -14,7 +14,9 @@ module.exports.getOne = async (req, res, next) => {
 };
 
 module.exports.getAll = async (req, res, next) => {
-    LIST.find({}, (err, lists) => {
+    LIST.find({
+        _userId: req.user_id
+    }, (err, lists) => {
         if (err) {
             helper.sendJsonResponse(res, 400, err);
         }
@@ -23,16 +25,20 @@ module.exports.getAll = async (req, res, next) => {
 };
 
 module.exports.create = async (req, res, next) => {
-    LIST.create(req.body, (err, lists) => {
-        if(err){
-            helper.sendJsonResponse(res,400, err);
-        }
-        helper.sendJsonResponse(res,201, lists);
+    let newList = new LIST({
+        title: req.body.title,
+        _userId: req.user_id
+    });
+
+    newList.save().then((listDoc) => {
+        helper.sendJsonResponse(res,201, listDoc);
+    }).catch((err) => {
+        helper.sendJsonResponse(res, 400, err);
     });
 };
 
 module.exports.update = async (req, res, next) => {
-    LIST.findOneAndUpdate({_id: req.params.id}, {
+    LIST.findOneAndUpdate({_id: req.params.id, _userId: req.user_id }, {
         $set: req.body
     }).then(() => {
         helper.sendJsonResponse(res, 200, {'message': 'updated successfully'});
@@ -43,9 +49,10 @@ module.exports.update = async (req, res, next) => {
 
 module.exports.delete = async (req, res, next) => {
     LIST.findOneAndRemove({
-        _id: req.params.id
+        _id: req.params.id,
+        _userId: req.user_id
     }).then((removedListDoc) => {
-        helper.sendJsonResponse(res,200, { 'message': `Tasks from ${req.params.id} were deleted!` });
+        helper.sendJsonResponse(res,200, { 'message': `List from ${req.params.id} were deleted!` });
         deleteTasksFromList(removedListDoc._id);
     }).catch((err) => {
         helper.sendJsonResponse(res, 400, err);

@@ -6,7 +6,6 @@ import { Pipe, PipeTransform } from "@angular/core";
 export class DateConvertPipe implements PipeTransform {
 
   transform(value: string): string {
-
     let date = {
       Year: new Date().getFullYear(),
       Month: new Date().getMonth() + 1,
@@ -29,6 +28,10 @@ export class DateConvertPipe implements PipeTransform {
     const valueDate = new Date(valueStr);
     const differenceInDays = (newDate.getTime() - valueDate.getTime()) / (1000 * 60 * 60 * 24);
 
+
+    if (differenceInDays < 0) {
+      return "сегодня";
+    }
     if (differenceInDays === 0) {
       return "сегодня";
     }

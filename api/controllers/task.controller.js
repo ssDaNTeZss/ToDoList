@@ -7,11 +7,14 @@ const helper = require("../helpers/common");
 
 module.exports.getAll = async (req, res, next) => {
 
+
     if (req.params.listId !== "all-tasks" &&
         req.params.listId !== "my-day" &&
         req.params.listId !== "important" &&
         req.params.listId !== "planned") {
-        TASK.find({_listId: req.params.listId}, (err, tasks) => {
+        TASK.find({
+            _listId: req.params.listId
+        }, (err, tasks) => {
             if (err) {
                 helper.sendJsonResponse(res, 400, err);
             }
@@ -20,80 +23,209 @@ module.exports.getAll = async (req, res, next) => {
     }
 
     if (req.params.listId === "all-tasks") {
-        TASK.find({}, (err, tasks) => {
-            if (err) {
-                helper.sendJsonResponse(res, 400, err);
+        let list = [];
+        let taskList = [];
+
+        LIST.find({
+            _userId: req.user_id
+        }).then((listNew) => {
+            if (listNew) {
+                list = listNew;
+                return true;
             }
-            helper.sendJsonResponse(res, 200, tasks);
+            return false;
+        }).then((canFindTask) => {
+            if (canFindTask) {
+                TASK.find({}, (err, tasks) => {
+                    for (let i = 0; i < list.length; i++) {
+                        for (let j = 0; j < tasks.length; j++) {
+                            if (list[i]._id.toString() === tasks[j]._listId.toString()) {
+                                taskList.push(tasks[j]);
+                            }
+                        }
+                    }
+                }).then(() => {
+                    helper.sendJsonResponse(res, 200, taskList);
+                })
+            } else {
+                res.sendStatus(404);
+            }
         });
     }
 
+
     if (req.params.listId === "my-day") {
-        TASK.find({date_of_completion: formationDate(new Date().toLocaleDateString())}, (err, tasks) => {
-            if (err) {
-                helper.sendJsonResponse(res, 400, err);
+        // TASK.find({
+        //     date_of_completion: formationDate(new Date().toLocaleDateString()),
+        //     _userId: req.user_id
+        // }, (err, tasks) => {
+        //     if (err) {
+        //         helper.sendJsonResponse(res, 400, err);
+        //     }
+        //     helper.sendJsonResponse(res, 200, tasks);
+        // });
+
+        let list = [];
+        let taskList = [];
+
+        LIST.find({
+            _userId: req.user_id
+        }).then((listNew) => {
+            if (listNew) {
+                list = listNew;
+                return true;
             }
-            helper.sendJsonResponse(res, 200, tasks);
+            return false;
+        }).then(async (canFindTask) => {
+            if (canFindTask) {
+                TASK.find({}, (err, tasks) => {
+                    for (let i = 0; i < list.length; i++) {
+                        for (let j = 0; j < tasks.length; j++) {
+                            if ((list[i]._id.toString() === tasks[j]._listId.toString()) && (tasks[j].date_of_completion)) {
+                                if (tasks[j].date_of_completion.toString() === formationDate(new Date().toLocaleDateString())) {
+                                    taskList.push(tasks[j]);
+                                }
+                            }
+                        }
+                    }
+                }).then(() => {
+                    helper.sendJsonResponse(res, 200, taskList);
+                })
+            } else {
+                res.sendStatus(404);
+            }
         });
     }
 
     if (req.params.listId === "important") {
-        TASK.find({important: true}, (err, tasks) => {
-            if (err) {
-                helper.sendJsonResponse(res, 400, err);
+        let list = [];
+        let taskList = [];
+
+        LIST.find({
+            _userId: req.user_id
+        }).then((listNew) => {
+            if (listNew) {
+                list = listNew;
+                return true;
             }
-            helper.sendJsonResponse(res, 200, tasks);
+            return false;
+        }).then(async (canFindTask) => {
+            if (canFindTask) {
+                TASK.find({}, (err, tasks) => {
+                    for (let i = 0; i < list.length; i++) {
+                        for (let j = 0; j < tasks.length; j++) {
+                            if (list[i]._id.toString() === tasks[j]._listId.toString()) {
+                                if (tasks[j].important) {
+                                    taskList.push(tasks[j]);
+                                }
+                            }
+                        }
+                    }
+                }).then(() => {
+                    helper.sendJsonResponse(res, 200, taskList);
+                })
+            } else {
+                res.sendStatus(404);
+            }
         });
     }
 
     if (req.params.listId === "planned") {
-        TASK.find({date_of_completion: {'$exists': true, "$ne": ""}}, (err, tasks) => {
-            if (err) {
-                helper.sendJsonResponse(res, 400, err);
+        let list = [];
+        let taskList = [];
+
+        LIST.find({
+            _userId: req.user_id
+        }).then((listNew) => {
+            if (listNew) {
+                list = listNew;
+                return true;
             }
-            helper.sendJsonResponse(res, 200, tasks);
+            return false;
+        }).then(async (canFindTask) => {
+            if (canFindTask) {
+                TASK.find({}, (err, tasks) => {
+                    for (let i = 0; i < list.length; i++) {
+                        for (let j = 0; j < tasks.length; j++) {
+                            if (list[i]._id.toString() === tasks[j]._listId.toString()) {
+                                if (tasks[j].date_of_completion) {
+                                    taskList.push(tasks[j]);
+                                }
+                            }
+                        }
+                    }
+                }).then(() => {
+                    helper.sendJsonResponse(res, 200, taskList);
+                })
+            } else {
+                res.sendStatus(404);
+            }
         });
     }
 };
 
 module.exports.create = async (req, res, next) => {
+    LIST.findOne({
+        _id: req.params.listId,
+        _userId: req.user_id
+    }).then((list) => {
+        if (list) {
+            return true;
+        }
+        return false;
+    }).then((canCreateTask) => {
+        if (canCreateTask) {
+            let newTask = new TASK({
+                title: req.body.title,
+                _listId: req.params.listId,
+                date_of_creation: new Date().toLocaleDateString(),
+                date_of_change: new Date(),
+            });
 
-    console.log(req.body);
-    console.log(req.params);
+            if (req.body.date_of_completion) {
+                newTask.date_of_completion = req.body.date_of_completion;
+            }
 
-    let newTask = new TASK({
-        title: req.body.title,
-        _listId: req.params.listId,
-        date_of_creation: new Date().toLocaleDateString(),
-        date_of_change: new Date(),
-    });
+            if (req.body.description) {
+                newTask.description = req.body.description;
+            }
 
-    if (req.body.date_of_completion) {
-        newTask.date_of_completion = req.body.date_of_completion;
-    }
-
-    if (req.body.description) {
-        newTask.description = req.body.description;
-    }
-
-    newTask.save().then((newTaskDoc) => {
-        helper.sendJsonResponse(res, 201, newTaskDoc);
-    }).catch((err) => {
-        helper.sendJsonResponse(res, 400, err);
+            newTask.save().then((newTaskDoc) => {
+                helper.sendJsonResponse(res, 201, newTaskDoc);
+            }).catch((err) => {
+                helper.sendJsonResponse(res, 400, err);
+            });
+        } else {
+            res.sendStatus(404);
+        }
     });
 };
 
 module.exports.update = async (req, res, next) => {
-    TASK.findOneAndUpdate({
-        _id: req.params.taskId,
-        _listId: req.params.listId
-    }, {
-        $set: req.body,
-        date_of_change: new Date()
-    }).then(() => {
-        helper.sendJsonResponse(res, 200, {'message': 'updated successfully'});
-    }).catch((err) => {
-        helper.sendJsonResponse(res, 400, err);
+    LIST.findOne({
+        _id: req.params.listId,
+        _userId: req.user_id
+    }).then((list) => {
+        if (list) {
+            return true;
+        }
+        return false;
+    }).then((canCreateTask) => {
+        if (canCreateTask) {
+            TASK.findOneAndUpdate({
+                _id: req.params.taskId,
+                _listId: req.params.listId
+            }, {
+                $set: req.body,
+                date_of_change: new Date()
+            }).then(() => {
+                helper.sendJsonResponse(res, 200, {'message': 'updated successfully'});
+            }).catch((err) => {
+                helper.sendJsonResponse(res, 400, err);
+            });
+        } else {
+            res.sendStatus(404);
+        }
     });
 };
 
@@ -119,7 +251,6 @@ module.exports.dangerousRemoval = async (req, res, next) => {
 };
 
 let formationDate = (date) => {
-    console.log(date);
     const str = date.split(".");
     const newDate = str[2] + "-" + str[1] + "-" + str[0];
     return newDate;

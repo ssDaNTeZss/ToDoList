@@ -3,27 +3,60 @@
 'right-panel-active': this.status
 }">
     <div class="form-container sign-up-container">
-      <form action="#">
+      <form
+        novalidate
+        [formGroup]="formModelSignUp"
+        (ngSubmit)="registration()">
         <h1>Регистрация</h1>
         <div class="container__inputs">
-          <input type="text" placeholder="Имя"/>
-          <input type="text" placeholder="Фамилия"/>
-          <input type="email" placeholder="Email"/>
-          <input type="password" placeholder="Пароль"/>
-          <input type="password" placeholder="Пароль еще раз"/>
+          <input type="email" placeholder="Email" formControlName="email"/>
+          <div *ngIf="__email && (__email.touched || __email.dirty)">
+            <p class="error-block" *ngIf="__email.errors?.required">Обязательное поле</p>
+            <p class="error-block" *ngIf="isControlInvalid2('email')">
+              Введите email в верном формате.</p>
+          </div>
+          <input type="password" placeholder="Пароль" formControlName="password"/>
+          <div *ngIf="__password && (__password.touched || __password.dirty)">
+            <p class="error-block" *ngIf="__password.errors?.required">Обязательное поле</p>
+          </div>
+          <input type="password" placeholder="Пароль еще раз" formControlName="password2"/>
+          <div *ngIf="__password2 && (__password2.touched || __password2.dirty)">
+            <p class="error-block" *ngIf="__password2.errors?.required">Обязательное поле</p>
+            <p class="error-block" *ngIf="isControlInvalid2('password')">
+              Пароль должен содержать символы как в верхнем, так и в нижнем регистре,
+              по крайней мере одну цифру или символ и
+              должен состоять как минимум из 8 символов.</p>
+            <p class="error-block" *ngIf="this.doNotMatch">
+              Пароли должны совпадать</p>
+          </div>
         </div>
-        <button>Зарегистрироваться</button>
+        <button type="submit">Зарегистрироваться</button>
       </form>
     </div>
 
     <div class="form-container sign-in-container">
-      <form action="#">
+      <form
+        novalidate
+        [formGroup]="formModelLogin"
+        (ngSubmit)="login()">
         <h1>Вход</h1>
         <div class="container__inputs">
-          <input type="email" placeholder="Email"/>
-          <input type="password" placeholder="Пароль"/>
+          <input type="email" placeholder="Email"
+                 formControlName="email">
+          <div *ngIf="_email && (_email.touched || _email.dirty)">
+            <p class="error-block" *ngIf="_email.errors?.required">Обязательное поле</p>
+          </div>
+          <input type="password" placeholder="Пароль"
+                 formControlName="password">
+          <div *ngIf="_password && (_password.touched || _password.dirty)">
+            <p class="error-block" *ngIf="_password.errors?.required">Обязательное поле</p>
+            <p class="error-block" *ngIf="isControlInvalid('password')">
+              Пароль должен содержать символы как в верхнем, так и в нижнем регистре,
+              по крайней мере одну цифру или символ и
+              должен состоять как минимум из 8 символов.</p>
+          </div>
         </div>
-        <button>Войти</button>
+        <button type="submit" [disabled]="formModelLogin.invalid">Войти</button>
       </form>
     </div>
 

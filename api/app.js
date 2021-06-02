@@ -7,6 +7,7 @@ const bodyParser = require("body-parser");
 require("./db/mongoose");
 require("./db/models/list.model");
 require("./db/models/task.model");
+require("./db/models/user.model");
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -39,7 +40,7 @@ app.use(function (req, res, next) {
 });
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/user', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

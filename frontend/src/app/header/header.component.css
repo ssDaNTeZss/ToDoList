@@ -31,6 +31,15 @@
   font-weight: bold;
 }
 
+.header__link-exit {
+  width: auto;
+  margin-top: 12px;
+  color: #f0f0f0;
+  font-size: 18pt;
+  float: left;
+  font-weight: bold;
+}
+
 .header-logo-link-sm {
   width: 215px;
   color: rgba(240, 240, 240, 0.5);
@@ -38,4 +47,37 @@
   font-weight: bold;
   font-size: 24pt;
   margin-bottom: 50px;
+}
+
+.add-task {
+  padding-right: 100px;
+  padding-top: 8px;
+  display: inline-block;
+  text-align: right;
+  transition-duration: 0.5s;
+  float: right;
+}
+
+.filters-list__controls__title {
+  display: block;
+  box-sizing: border-box;
+  padding: 4px;
+  transition-duration: 0.5s;
+  border-radius: 10px;
+}
+
+.filters-list__controls__title.fl-hover {
+  background-color: #eeeeee;
+}
+
+.filters-list__controls__title:hover {
+  background-color: #5d5d5d;
+}
+
+.filters-list__controls__title-text {
+  color: white;
+  font-size: 18pt;
+  font-weight: bold;
+  display: inline-block;
+  margin-left: 10px;
 }

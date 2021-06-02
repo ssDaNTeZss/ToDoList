@@ -1,4 +1,4 @@
-import { HttpClientModule } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
@@ -18,6 +18,7 @@ import { TasksComponent } from "./page/tasks/tasks.component";
 import { DateConvertPipe } from "./pipes/date-convert.pipe";
 import { PopupComponent } from "./popup/popup.component";
 import { TableComponent } from "./table/table.component";
+import { WebReqInterceptor } from "./web-req.interceptor";
 
 
 @NgModule({
@@ -42,7 +43,9 @@ import { TableComponent } from "./table/table.component";
     HttpClientModule,
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: WebReqInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
